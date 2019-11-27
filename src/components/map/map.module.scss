@@ -1,6 +1,9 @@
-.container{
-    margin:10px;
-    width:60%;
-    height:60%;
-    background-color: chartreuse;
+.container {
+  width: 100%;
+  height: 60%;
+  background-color: chartreuse;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
 }

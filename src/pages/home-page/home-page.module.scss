@@ -1,7 +1,13 @@
-.container{
-    width:100%;
-    height: 90%;
-    background-color: antiquewhite;
+.container {
+  width: 100%;
+  height: 90%;
+  background-color: antiquewhite;
+  display: flex;
+  justify-content: center;
+  .mapAndInfo {
+    width: 60%;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    background-color: darkgray;
+  }
 }
