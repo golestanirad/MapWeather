@@ -21,3 +21,6 @@ const App = () => {
 };
 
 export default App;
+
+//1) remove icon - done
+// 2) get user location and show weather for that place by default
