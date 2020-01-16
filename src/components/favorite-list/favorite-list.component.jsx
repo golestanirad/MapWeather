@@ -14,8 +14,6 @@ const FavoriteList = () => {
   const renderWeatherCardsList = () => {
     const favoritesWeatherData = _.pick(weatherData, favorites);
 
-    console.log("favoritesWeatherData111111111", favoritesWeatherData);
-
     return _.map(favoritesWeatherData, (weatherInfo, cityId) => {
       return (
         <WeatherCard key={cityId} weatherInfo={weatherInfo} cityId={cityId} />

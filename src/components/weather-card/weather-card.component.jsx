@@ -4,13 +4,15 @@ import IconButton from "@material-ui/core/IconButton";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import DeleteForever from "@material-ui/icons/DeleteForever";
+import RoomIcon from "@material-ui/icons/Room";
 import _ from "lodash";
 ///// project files
 import styles from "./weather-card.module.scss";
 import {
   makeThisRecordFavorite,
   makeThisRecordUnfavorite,
-  deleteThisCity
+  deleteThisCity,
+  selectedLocation
 } from "../../redux/weather/weather.actions";
 import MySlideShow from "../slide-show/slide-show.component";
 import WeatherInformation from "./weather-information/weather-information.component";
@@ -20,23 +22,25 @@ const WeatherCard = ({ weatherInfo, cityId }) => {
   const dispatch = useDispatch();
   const favorites = useSelector(state => state.weather.favorites);
   const [test, setTest] = useState(0);
-  ////
 
+  ////
   const { main, weather, name, wind, sys } = weatherInfo.currentWeather;
   const { list } = weatherInfo.forecast;
   const isFavorite = favorites.includes(cityId);
 
- //// event handlers
-  const onFavoriteClick = () => {   
+  //// event handlers
+  const onFavoriteClick = () => {
     isFavorite
       ? dispatch(makeThisRecordUnfavorite(cityId))
       : dispatch(makeThisRecordFavorite(cityId));
   };
-
+  const onMapIconClick = () => {
+    dispatch(selectedLocation(cityId));
+  };
   const onDeleteClick = () => {
     dispatch(deleteThisCity(cityId));
-  }
-////
+  };
+  ////
   const renderForcastList = () => {
     let i = 0;
     const newList = _.map(list, ({ main, weather, wind, dt_txt }) => {
@@ -59,10 +63,8 @@ const WeatherCard = ({ weatherInfo, cityId }) => {
 
   return (
     <div className={styles.container}>
-      <span className={styles.cityName}>
-        {name}, {sys.country}
-      </span>
-
+      <span className={styles.cityName}>City(neighbourhood): {name}</span>
+      <span className={styles.cityName}>Country: {sys.country}</span>
       <div className={styles.currentWeather}>
         <span>Current Weather:</span>
         <WeatherInformation
@@ -78,9 +80,6 @@ const WeatherCard = ({ weatherInfo, cityId }) => {
       <div className={styles.forecast}>
         <span>Forecast Weather:</span>
         <MySlideShow>{renderForcastList()}</MySlideShow>
-        {/* <div >
-          {renderForcastList()}
-        </div> */}
       </div>
 
       <div className={styles.cardActions}>
@@ -90,6 +89,13 @@ const WeatherCard = ({ weatherInfo, cityId }) => {
           onClick={onFavoriteClick}
         >
           {isFavorite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+        </IconButton>
+        <IconButton
+          color="secondary"
+          aria-label="map"
+          onClick={onMapIconClick}
+        >
+          <RoomIcon />
         </IconButton>
         <IconButton
           color="secondary"

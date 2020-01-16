@@ -2,27 +2,32 @@ import _ from "lodash";
 /// project files
 import { weatherActionTypes } from "./weather.actionTypes";
 
-const INITIAL_STATE = { error: "", weatherData: {}, favorites: [] };
+const INITIAL_STATE = {
+  error: "",
+  weatherData: {},
+  favorites: [],
+  selected: null
+};
 ///weatherData: { [cityId]:{ currentWeather:{},forcast:{} }, ...}
 
 const weatherReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case weatherActionTypes.FETCH_WEATHER_DATA_SUCCESS:
       const key = "_" + action.payload.currentWeather.id;
-      // const test = {
-      //   ...state.weatherData,
-      //   [key]: action.payload
-      // };
-      // console.log("teest", test);
+      console.log("keeeeeey", key);
+      console.log("action.payload", action.payload);
       return {
         ...state,
         error: "",
         weatherData: {
-          ...state.weatherData,
-          //// action.payload.currentWeather.id is the searched city id
-          [key]: action.payload
-        }
+          [key]: action.payload,
+          ...state.weatherData
+        },
+        selected: key
       };
+
+    case weatherActionTypes.SELECTED_LOCATION:
+      return { ...state, selected: action.payload };
 
     case weatherActionTypes.FETCH_WEATHER_DATA_FAILURE:
       return { ...state, error: action.payload };
@@ -40,6 +45,8 @@ const weatherReducer = (state = INITIAL_STATE, action) => {
     case weatherActionTypes.DELETE_CITY:
       return {
         ...state,
+        selected: action.payload === state.selected ? null : state.selected,
+        favorite:  _.pullAt(newFavorites2, state.favorites.indexOf(action.payload)),//// not done
         weatherData: _.omit(state.weatherData, action.payload)
       };
 

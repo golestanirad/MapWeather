@@ -34,3 +34,8 @@ export const deleteThisCity = (cityId) => ({
   type: weatherActionTypes.DELETE_CITY,
   payload: cityId
 })
+
+export const selectedLocation = (cityId) => ({
+  type: weatherActionTypes.SELECTED_LOCATION,
+  payload: cityId
+})

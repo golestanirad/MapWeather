@@ -9,7 +9,6 @@ const SearchHistory = () => {
   //// Hooks
   const weatherData = useSelector(state => state.weather.weatherData);
   ////^^^
-  console.log("search history111111");
   const renderWeatherCardsList = () => {
     return _.map(weatherData, (weatherInfo, cityId) => {
       return (
