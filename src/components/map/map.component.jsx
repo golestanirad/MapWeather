@@ -17,9 +17,11 @@ const Map = () => {
 
   //// selector
   const selectedLocation = useSelector(
-    ({ weather }) => weather.weatherData[weather.selected]
+    ({ weather }) =>  
+       {console.log(1111,weather.weatherData[weather.selected]);return weather.weatherData[weather.selected]}
   );
-  console.log("selectedLocationnnnnnnnnnnn", selectedLocation);
+  const refreshMap =useSelector(({weather})=> { console.log(2222,weather.refreshMap);return weather.refreshMap});
+ 
 
   ///// event handelers
   const onContextMenu = e => {
@@ -37,10 +39,12 @@ const Map = () => {
     center = [40.73, -73.93];
   }
   //////
+  console.log(33333);
   return (
+  
     <LeafletMap
       center={center}
-      zoom={15}
+      zoom={150}
       className={styles.map}
       onContextMenu={onContextMenu}
     >
@@ -48,7 +52,10 @@ const Map = () => {
         attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
+      {refreshMap}
     </LeafletMap>
+   
+  
   );
 };
 

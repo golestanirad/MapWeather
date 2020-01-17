@@ -6,7 +6,8 @@ const INITIAL_STATE = {
   error: "",
   weatherData: {},
   favorites: [],
-  selected: null
+  selected: null,
+  refreshMap: false
 };
 ///weatherData: { [cityId]:{ currentWeather:{},forcast:{} }, ...}
 
@@ -27,7 +28,7 @@ const weatherReducer = (state = INITIAL_STATE, action) => {
       };
 
     case weatherActionTypes.SELECTED_LOCATION:
-      return { ...state, selected: action.payload };
+      return { ...state, selected: action.payload, refreshMap: !state.refreshMap };
 
     case weatherActionTypes.FETCH_WEATHER_DATA_FAILURE:
       return { ...state, error: action.payload };
@@ -38,15 +39,17 @@ const weatherReducer = (state = INITIAL_STATE, action) => {
       return { ...state, favorites: newFavorites };
 
     case weatherActionTypes.MAKE_IT_UNFAVORITE:
-      const newFavorites2 = [...state.favorites];
+      const  newFavorites2 = [...state.favorites];
       _.pullAt(newFavorites2, state.favorites.indexOf(action.payload));
       return { ...state, favorites: newFavorites2 };
 
     case weatherActionTypes.DELETE_CITY:
+      const newFavorites3 = [...state.favorites];
+      _.pullAt(newFavorites3, state.favorites.indexOf(action.payload))
       return {
         ...state,
         selected: action.payload === state.selected ? null : state.selected,
-        favorite:  _.pullAt(newFavorites2, state.favorites.indexOf(action.payload)),//// not done
+        favorite:  newFavorites3,//// not done
         weatherData: _.omit(state.weatherData, action.payload)
       };
 
