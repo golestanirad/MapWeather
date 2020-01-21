@@ -14,8 +14,6 @@ const weatherReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case weatherActionTypes.FETCH_WEATHER_DATA_SUCCESS:
       const key = "_" + action.payload.currentWeather.id;
-      console.log("keeeeeey", key);
-      console.log("action.payload", action.payload);
       return {
         ...state,
         error: "",
@@ -48,7 +46,7 @@ const weatherReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         selected: action.payload === state.selected ? null : state.selected,
-        favorite:  newFavorites3,//// not done
+        favorites:  newFavorites3,
         weatherData: _.omit(state.weatherData, action.payload)
       };
 
