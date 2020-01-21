@@ -5,46 +5,39 @@ import { usePosition } from "use-position";
 /// project files
 import styles from "./map.module.scss";
 import { fetchWeatherDataStart } from "../../redux/weather/weather.actions";
+import { mapCenter } from "../../redux/map/map.actions";
 
 const Map = () => {
   /// Hooks
-  const { latitude, longitude, timestamp, accuracy, error } = usePosition();
   const dispatch = useDispatch();
-  useEffect(() => {
-    if (latitude)
-      dispatch(fetchWeatherDataStart({ lat: latitude, lng: longitude }));
-  }, [latitude]);
 
-  //// selector
-  const selectedLocation = useSelector(
-    ({ weather }) =>  
-       {console.log(1111,weather.weatherData[weather.selected]);return weather.weatherData[weather.selected]}
-  );
-  const refreshMap =useSelector(({weather})=> { console.log(2222,weather.refreshMap);return weather.refreshMap});
- 
+  const mapCenterCoords = useSelector(({ map }) => {
+    return map.mapCenter;
+  });
+
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(
+      ({ coords: { latitude, longitude } }) => {
+        dispatch(mapCenter(latitude, longitude));
+        dispatch(fetchWeatherDataStart({ lat: latitude, lng: longitude }));
+      }
+    );
+  }, []);
 
   ///// event handelers
   const onContextMenu = e => {
     dispatch(fetchWeatherDataStart(e.latlng));
   };
 
-  ////
-  let center = [];
-  if (selectedLocation) {
-    center = [
-      selectedLocation.currentWeather.coord.lat,
-      selectedLocation.currentWeather.coord.lon
-    ];
-  } else {
-    center = [40.73, -73.93];
-  }
   //////
-  console.log(33333);
+  console.log(33333, mapCenterCoords);
   return (
-  
     <LeafletMap
-      center={center}
-      zoom={150}
+      center={[
+        mapCenterCoords.lat + Math.random() / 10000,
+        mapCenterCoords.lng
+      ]}
+      zoom={15}
       className={styles.map}
       onContextMenu={onContextMenu}
     >
@@ -52,10 +45,7 @@ const Map = () => {
         attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-      {refreshMap}
     </LeafletMap>
-   
-  
   );
 };
 

@@ -6,8 +6,7 @@ const INITIAL_STATE = {
   error: "",
   weatherData: {},
   favorites: [],
-  selected: null,
-  refreshMap: false
+  selected: null
 };
 ///weatherData: { [cityId]:{ currentWeather:{},forcast:{} }, ...}
 
@@ -28,7 +27,7 @@ const weatherReducer = (state = INITIAL_STATE, action) => {
       };
 
     case weatherActionTypes.SELECTED_LOCATION:
-      return { ...state, selected: action.payload, refreshMap: !state.refreshMap };
+      return { ...state, selected: action.payload};
 
     case weatherActionTypes.FETCH_WEATHER_DATA_FAILURE:
       return { ...state, error: action.payload };

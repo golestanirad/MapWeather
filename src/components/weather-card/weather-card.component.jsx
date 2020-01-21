@@ -14,6 +14,7 @@ import {
   deleteThisCity,
   selectedLocation
 } from "../../redux/weather/weather.actions";
+import { mapCenter } from "../../redux/map/map.actions";
 import MySlideShow from "../slide-show/slide-show.component";
 import WeatherInformation from "./weather-information/weather-information.component";
 
@@ -36,6 +37,12 @@ const WeatherCard = ({ weatherInfo, cityId }) => {
   };
   const onMapIconClick = () => {
     dispatch(selectedLocation(cityId));
+    dispatch(
+      mapCenter(
+        weatherInfo.currentWeather.coord.lat,
+        weatherInfo.currentWeather.coord.lon
+      )
+    );
   };
   const onDeleteClick = () => {
     dispatch(deleteThisCity(cityId));
@@ -90,11 +97,7 @@ const WeatherCard = ({ weatherInfo, cityId }) => {
         >
           {isFavorite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
         </IconButton>
-        <IconButton
-          color="secondary"
-          aria-label="map"
-          onClick={onMapIconClick}
-        >
+        <IconButton color="secondary" aria-label="map" onClick={onMapIconClick}>
           <RoomIcon />
         </IconButton>
         <IconButton

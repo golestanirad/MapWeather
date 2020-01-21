@@ -6,7 +6,7 @@ import {
   fetchWeatherDataSuccess,
   fetchWeatherDataFailure
 } from "./weather.actions";
-
+import { mapCenter } from "../map/map.actions";
 
 /// helpers
 function* fetchWeatherData(query) {
@@ -45,6 +45,12 @@ function* fetchWeatherDataStart(action) {
         forecast: forecasttWeatherResponse.data
       })
     );
+    yield put(
+      mapCenter(
+        currentWeatherResponse.data.coord.lat,
+        currentWeatherResponse.data.coord.lon
+      )
+    );
   } catch (error) {
     console.log(333333, error);
     yield put(fetchWeatherDataFailure(error));
@@ -59,7 +65,7 @@ function* watchfetchWeatherDataStart() {
   );
 }
 
-//// 
+////
 export function* weatherSagas() {
   yield all([call(watchfetchWeatherDataStart)]);
 }
