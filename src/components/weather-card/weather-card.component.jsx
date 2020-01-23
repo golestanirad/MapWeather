@@ -4,7 +4,8 @@ import IconButton from "@material-ui/core/IconButton";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import DeleteForever from "@material-ui/icons/DeleteForever";
-import RoomIcon from "@material-ui/icons/Room";
+import RoomOutlined from "@material-ui/icons/RoomOutlined";
+import Room from "@material-ui/icons/Room";
 import _ from "lodash";
 ///// project files
 import styles from "./weather-card.module.scss";
@@ -22,8 +23,7 @@ const WeatherCard = ({ weatherInfo, cityId }) => {
   ////Hooks
   const dispatch = useDispatch();
   const favorites = useSelector(state => state.weather.favorites);
-  const [test, setTest] = useState(0);
-
+  const selected = useSelector(state => state.weather.selected);
   ////
   const { main, weather, name, wind, sys } = weatherInfo.currentWeather;
   const { list } = weatherInfo.forecast;
@@ -47,7 +47,8 @@ const WeatherCard = ({ weatherInfo, cityId }) => {
   const onDeleteClick = () => {
     dispatch(deleteThisCity(cityId));
   };
-  ////
+
+  //// renders
   const renderForcastList = () => {
     let i = 0;
     const newList = _.map(list, ({ main, weather, wind, dt_txt }) => {
@@ -98,7 +99,7 @@ const WeatherCard = ({ weatherInfo, cityId }) => {
           {isFavorite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
         </IconButton>
         <IconButton color="secondary" aria-label="map" onClick={onMapIconClick}>
-          <RoomIcon />
+          {selected === cityId ? <Room /> : <RoomOutlined />}
         </IconButton>
         <IconButton
           color="secondary"

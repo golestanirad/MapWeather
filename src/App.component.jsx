@@ -26,3 +26,4 @@ export default App;
 // 2) get user location and show weather for that place by default -done
 // 3) move map to the selected location and also add a map icon to the cart - done
 // 4) weather tile
+// 5) make location icon emty and filled when selected
