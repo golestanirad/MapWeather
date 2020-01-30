@@ -4,27 +4,29 @@
     align-items: center;
     justify-content: center;
     width: 95%;
-    // background-color: aqua;
+   margin: 5px;
+
     border: 2px solid black;
     border-radius: 10px;
-    margin: 5px;
+   
     .cityName{
-      margin-top:10px;
+ 
       font-weight: bold;
     }
     .currentWeather {
-      // border: 2px solid #73ad21;
+   
       width: 100%;
       display: flex;
       justify-content: center;
       align-items: center;
       flex-direction: column;
-      margin: 10px;
+     
     }
     .divider {
       height: 2px;
       width: 90%;
-      background-color: black;
+   
+      margin: 10px;
     }
     .forecast {
       //  border: 5px solid blue;
@@ -33,12 +35,12 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      margin: 10px;
+
     }
     .cardActions {
       border-top: 1px solid green;   
       width: 100%;
-      margin-top: 10px;
+     // margin-top: 10px;
       display: flex;
       align-items: center;
       justify-content: space-around;

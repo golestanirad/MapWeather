@@ -3,6 +3,7 @@ import _ from "lodash";
 import { weatherActionTypes } from "./weather.actionTypes";
 
 const INITIAL_STATE = {
+  loading: false,
   error: "",
   weatherData: {},
   favorites: [],
@@ -11,11 +12,16 @@ const INITIAL_STATE = {
 ///weatherData: { [cityId]:{ currentWeather:{},forcast:{} }, ...}
 
 const weatherReducer = (state = INITIAL_STATE, action) => {
+  let newFavorites = [];
   switch (action.type) {
+    case weatherActionTypes.FETCH_WEATHER_DATA_START:
+      return { ...state, loading: true };
+
     case weatherActionTypes.FETCH_WEATHER_DATA_SUCCESS:
       const key = "_" + action.payload.currentWeather.id;
       return {
         ...state,
+        loading: false,
         error: "",
         weatherData: {
           [key]: action.payload,
@@ -25,28 +31,42 @@ const weatherReducer = (state = INITIAL_STATE, action) => {
       };
 
     case weatherActionTypes.SELECTED_LOCATION:
-      return { ...state, selected: action.payload};
+      if (state.favorites.includes(action.payload)) {
+        newFavorites = [...state.favorites];
+        newFavorites.splice(newFavorites.indexOf(action.payload), 1);
+        newFavorites.unshift(action.payload);
+      } else {
+        newFavorites = [...state.favorites];
+      }
+      return {
+        ...state,
+        favorites: newFavorites,
+        weatherData: {
+          [action.payload]: state.weatherData[action.payload],
+          ...state.weatherData
+        },
+        selected: action.payload
+      };
 
     case weatherActionTypes.FETCH_WEATHER_DATA_FAILURE:
       return { ...state, error: action.payload };
 
     case weatherActionTypes.MAKE_IT_FAVORITE:
-      const newFavorites = [...state.favorites];
+      newFavorites = [...state.favorites];
       newFavorites.push(action.payload);
       return { ...state, favorites: newFavorites };
 
     case weatherActionTypes.MAKE_IT_UNFAVORITE:
-      const  newFavorites2 = [...state.favorites];
-      _.pullAt(newFavorites2, state.favorites.indexOf(action.payload));
-      return { ...state, favorites: newFavorites2 };
+      newFavorites = [...state.favorites];
+      _.pullAt(newFavorites, state.favorites.indexOf(action.payload));
+      return { ...state, favorites: newFavorites };
 
     case weatherActionTypes.DELETE_CITY:
-      const newFavorites3 = [...state.favorites];
-      _.pullAt(newFavorites3, state.favorites.indexOf(action.payload))
+      newFavorites = [...state.favorites];
+      _.pullAt(newFavorites, state.favorites.indexOf(action.payload));
       return {
         ...state,
-        selected: action.payload === state.selected ? null : state.selected,
-        favorites:  newFavorites3,
+        favorites: newFavorites,
         weatherData: _.omit(state.weatherData, action.payload)
       };
 

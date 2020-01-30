@@ -25,5 +25,12 @@ export default App;
 //1) remove icon - done
 // 2) get user location and show weather for that place by default -done
 // 3) move map to the selected location and also add a map icon to the cart - done
-// 4) weather tile
-// 5) make location icon emty and filled when selected
+// 4) weather tile - done
+// 5) make location icon emty and filled when selected - done
+// 6) weather icons - done
+// 7) move the selected one hiligted and to the top 
+// 8) make the top one always selected - done
+// 9) add loader spiner - done
+// 10) add animation via csstransitoingroup from facebook comunity
+// 11) fix forcast arrow
+// 12) use a nice scroll bar

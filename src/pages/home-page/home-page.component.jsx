@@ -1,4 +1,6 @@
 import React from "react";
+import { useSelector } from "react-redux";
+import LoadingOverlay from "react-loading-overlay";
 ////project fiels
 import styles from "./home-page.module.scss";
 import Map from "../../components/map/map.component";
@@ -6,16 +8,25 @@ import SearchHistory from "../../components/search-history/search-history.compon
 import FavoriteList from "../../components/favorite-list/favorite-list.component";
 import WeatherTile from "../../components/weather-tile/weather-tile.component";
 
-const HomePage = () => { 
+const HomePage = () => {
+  /// HOOKS
+  const loading = useSelector(state => state.weather.loading);
+
+  /// RENDER
   return (
-    <div className={styles.container}>
+    <LoadingOverlay
+      active={loading}
+      spinner
+      text="Loading your content..."
+      className={styles.container}
+    >
       <SearchHistory />
-      <div className={styles.mapAndInfo}>
+      <div className={styles.mapAndTile}>
         <Map />
-        <WeatherTile />
+        {/* <WeatherTile /> */}
       </div>
       <FavoriteList />
-    </div>
+    </LoadingOverlay>
   );
 };
 

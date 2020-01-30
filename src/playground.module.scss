@@ -1,9 +1,6 @@
 .container {
-  background-color: pink;
-  width: 500px;
-  .test {
-    height: 100px;
-    width: 90%;
-    background-color: aqua;
-  }
+  background-color: burlywood;
+  display: flex;
+  flex-direction: row;
+  
 }

@@ -24,7 +24,10 @@ const WeatherCard = ({ weatherInfo, cityId }) => {
   const dispatch = useDispatch();
   const favorites = useSelector(state => state.weather.favorites);
   const selected = useSelector(state => state.weather.selected);
-  ////
+  const weatherData = useSelector(state => state.weather.weatherData);
+
+  ////PROPS
+  // const { main, weather, name, wind, sys } = weatherInfo?.currentWeather ?? {};
   const { main, weather, name, wind, sys } = weatherInfo.currentWeather;
   const { list } = weatherInfo.forecast;
   const isFavorite = favorites.includes(cityId);
@@ -45,6 +48,19 @@ const WeatherCard = ({ weatherInfo, cityId }) => {
     );
   };
   const onDeleteClick = () => {
+    if (cityId === selected) {
+      //TODO
+      const keyOfSecondLocationInList = Object.keys(weatherData)[1];
+      if (keyOfSecondLocationInList) {
+        dispatch(
+          mapCenter(
+            weatherData[keyOfSecondLocationInList].currentWeather.coord.lat,
+            weatherData[keyOfSecondLocationInList].currentWeather.coord.lon
+          )
+        );
+        dispatch(selectedLocation(keyOfSecondLocationInList));
+      }
+    }
     dispatch(deleteThisCity(cityId));
   };
 
@@ -56,7 +72,6 @@ const WeatherCard = ({ weatherInfo, cityId }) => {
         i++;
         return (
           <WeatherInformation
-            image="image"
             main={main}
             weather={weather}
             wind={wind}
@@ -75,12 +90,7 @@ const WeatherCard = ({ weatherInfo, cityId }) => {
       <span className={styles.cityName}>Country: {sys.country}</span>
       <div className={styles.currentWeather}>
         <span>Current Weather:</span>
-        <WeatherInformation
-          image="image"
-          main={main}
-          weather={weather}
-          wind={wind}
-        />
+        <WeatherInformation main={main} weather={weather} wind={wind} />
       </div>
 
       <div className={styles.divider} />

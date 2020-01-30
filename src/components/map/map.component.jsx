@@ -10,11 +10,9 @@ import { mapCenter } from "../../redux/map/map.actions";
 const Map = () => {
   /// Hooks
   const dispatch = useDispatch();
-
   const mapCenterCoords = useSelector(({ map }) => {
     return map.mapCenter;
   });
-
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
       ({ coords: { latitude, longitude } }) => {
@@ -30,7 +28,6 @@ const Map = () => {
   };
 
   //////
-  console.log(33333, mapCenterCoords);
   return (
     <LeafletMap
       center={[

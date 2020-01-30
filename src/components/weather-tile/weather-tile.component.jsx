@@ -10,17 +10,15 @@ const WeatherInformationTile = () => {
   ////HOOKS
   const selectedLocationInfo = useSelector(state => {
     const selected = state.weather.selected;
-    console.log("selectedddddddd", selected);
     return state.weather.weatherData[selected];
   });
 
-  console.log("selectedLocationInfooooooooo", selectedLocationInfo);
-  ////
+  ////PROPS
   const { main, weather, name, wind, sys } =
     selectedLocationInfo?.currentWeather ?? {};
   const { list } = selectedLocationInfo?.forecast ?? {};
 
-  ////
+  //// RENDER
   const renderForcastList = () => {
     let i = 0;
     const newList = _.map(list, ({ main, weather, wind, dt_txt }) => {
@@ -60,7 +58,7 @@ const WeatherInformationTile = () => {
           <div className={styles.forecast}>
             <span>Forecast Weather:</span>
             <MySlideShow>{renderForcastList()}</MySlideShow>
-          </div>{" "}
+          </div>
         </>
       ) : null}
     </div>
