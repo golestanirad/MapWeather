@@ -1,55 +1,48 @@
-import React from "react";
-import ContentLoader, { Facebook } from "react-content-loader";
-import LoadingOverlay from "react-loading-overlay";
-import { Map as LeafletMap, TileLayer } from "react-leaflet";
-/// project files
-import styles from "./playground.module.scss";
-
-const ComponentOne = () => {
-  return (
-    <div style={{ width: 200, height: 200, backgroundColor: "red" }}>
-      ONE :)
-    </div>
-  );
-};
-const ComponentTwo = () => {
-  return (
-    <div style={{ width: 200, height: 200, backgroundColor: "pink" }}>
-      two :)
-    </div> 
-  );
-};
-const ComponentThree = () => {
-  return (
-    <div style={{ width: 200, height: 200, backgroundColor: "green" }}>
-      THREE :)
-    </div>
-  );
-};
+import React, { useEffect } from "react";
+import PSD from 'psd';
+import axios from "axios";
 
 const Playground = () => {
-  return (
-    <div className={styles.container}>
-      <LoadingOverlay
-        active={false}
-        spinner
-        text="Loading your content..."
-        styles={{
-          overlay: base => ({
-            ...base,
-            background: "rgba(255, 0, 0, 0.5)"
-          })
-        }}
-      >
-        <LeafletMap center={[10, -140]} zoom={15} style={{width:200,height:200}}>
-          <TileLayer
-            attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          />
-        </LeafletMap>
-      </LoadingOverlay>
-    </div>
-  );
+  useEffect(() => {
+    // axios.get('http://31.220.50.160:5000/psd2/')
+    // .then(function (response) {
+    //   // handle success
+    //   console.log(11111);
+    //   console.log(response);
+    //   console.log(11122211);
+    // })
+    // .catch(function (error) {
+    //   // handle error
+    //   console.log(error);
+    // })
+    // .then(function () {
+    //   // always executed
+    // });
+    // axios({
+    //   url: "http://31.220.50.160:5000/psd2",
+    //   method: "GET",
+    //   responseType: "blob" // important
+    // })
+    //   .then(response => {
+    //     console.log(11111);
+    //     console.log(response);
+    //     console.log(11122211);
+    //     console.log(response.data);
+    //     PSD.fromURL("/path/to/file.psd").then(function(psd) {
+    //       document.getElementById('ImageContainer').appendChild(psd.image.toPng());
+    //     });
+        
+    //   })
+    //   .catch(function(error) {
+    //     // handle error
+    //     console.log(1333);
+    //     console.log(error);
+    //   });
+     
+    
+  }, []);
+
+  return <div>test :)</div>;
 };
 
 export default Playground;

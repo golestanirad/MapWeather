@@ -1,6 +1,6 @@
 import { combineReducers } from "redux";
 //// project fiels
-import weatherReducer from "./weather/weather.reducers";
+import weatherReducer from "./weather/weather.reducer.new";
 import mapReducer from "./map/map.reducers";
 
 const rootReducer = combineReducers({
