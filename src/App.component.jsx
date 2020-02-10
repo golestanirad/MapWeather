@@ -34,6 +34,9 @@ export default App;
 // 10) add animation via csstransitoingroup from facebook comunity
 // 11) fix forcast arrow
 // 12) use a nice scroll bar
-//13) make it responsive :)
+//13) make it responsive :) *********
 // 14) use https://github.com/welldone-software/why-did-you-render
-// 15) use hool eslint
+// 15) use hook eslint
+// 16) use immer - done
+//17 use a library to detect if you accidently mutate the state (note: remove it for prodoction)  - done
+// 18) get the name of city out and show beside the neighbourhood name

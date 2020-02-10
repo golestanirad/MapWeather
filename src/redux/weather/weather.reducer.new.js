@@ -1,5 +1,5 @@
 import _ from "lodash";
-import proudce, { produce } from "immer";
+import { produce } from "immer";
 /// project files
 import { weatherActionTypes } from "./weather.actionTypes";
 

@@ -9,14 +9,11 @@ import LoadingWeatherCard from "../weather-card/loading-weather-card/loading-wea
 const SearchHistory = () => {
   //// Hooks
   const weatherData = useSelector(state => state.weather.weatherData);
-  console.log(3333, weatherData);
   ////^^^
   const renderWeatherCardsList = () => {
-    return _.map(weatherData, (weatherInfo, cityId) => {
-      console.log(4444);
+    return _.map(weatherData, (weatherInfo, cityId) => {    
       return (
         <WeatherCard key={cityId} weatherInfo={weatherInfo} cityId={cityId} />
-        // <LoadingWeatherCard />
       );
     });
   };

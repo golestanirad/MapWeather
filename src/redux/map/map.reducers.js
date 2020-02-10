@@ -10,6 +10,7 @@ const mapReducer = (state = INITAL_STATE, action) => {
         ...state,
         mapCenter: { lat: action.payload.lat, lng: action.payload.lng }
       };
+     
     default:
       return state;
   }

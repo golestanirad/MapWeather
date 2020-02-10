@@ -16,7 +16,7 @@ const Map = () => {
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
       ({ coords: { latitude, longitude } }) => {
-        dispatch(mapCenter(latitude, longitude));
+       // dispatch(mapCenter(latitude, longitude));
         dispatch(fetchWeatherDataStart({ lat: latitude, lng: longitude }));
       }
     );
