@@ -53,8 +53,7 @@ const weatherReducer = (state = INITIAL_STATE, action) => {
         if (action.payload === draft.selected) {
           _.pullAt(draft.favorites, draft.favorites.indexOf(action.payload));
           draft.favorites.unshift(action.payload);
-        }
-        draft.favorites.push(action.payload);
+        } else draft.favorites.push(action.payload);
         break;
 
       case weatherActionTypes.MAKE_IT_UNFAVORITE:

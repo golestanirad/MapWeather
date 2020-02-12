@@ -28,7 +28,7 @@ const CustomArrow = props => {
 };
 
 const MySlideShow = ({ children }) => {
-  const settings = {    
+  const settings = {
     dots: false,
     infinite: true,
     speed: 500,

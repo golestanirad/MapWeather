@@ -1,18 +1,38 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import LoadingOverlay from "react-loading-overlay";
 import { useMediaQuery } from "react-responsive";
+import AppBar from "@material-ui/core/AppBar";
+import Tabs from "@material-ui/core/Tabs";
+import Tab from "@material-ui/core/Tab";
 ////project fiels
 import styles from "./home-page.module.scss";
 import Map from "../../components/map/map.component";
 import SearchHistory from "../../components/search-history/search-history.component";
 import FavoriteList from "../../components/favorite-list/favorite-list.component";
+import MoboleTabBar from "../../components/mobile-tab-bar/mobile-tab-bar.component";
+import { fetchWeatherDataStart } from "../../redux/weather/weather.actions";
+import { mapCenter } from "../../redux/map/map.actions";
 
 const HomePage = () => {
   /// HOOKS
   const loading = useSelector(state => state.weather.loading);
-  const isTabletOrMobile = useMediaQuery({ query: "(max-width: 1224px)" });
-  console.log(1111, isTabletOrMobile);
+  const isTabletOrMobile = useMediaQuery({ query: "(max-width: 1024px)" });
+  const [value, setValue] = useState(1);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(
+      ({ coords: { latitude, longitude } }) => {
+        dispatch(mapCenter(latitude, longitude));
+        dispatch(fetchWeatherDataStart({ lat: latitude, lng: longitude }));
+      }
+    );
+  }, []);
+
+  //// EVET HANDELERS
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
   ///// STYLE
 
   /// RENDER
@@ -23,9 +43,32 @@ const HomePage = () => {
       text="Loading your content..."
       className={isTabletOrMobile ? styles.smallContainer : styles.bigContainer}
     >
-      <SearchHistory />
-      <Map />
-      <FavoriteList />
+      {isTabletOrMobile ? (
+        <>
+          <AppBar position="static" color="default" style={{ zIndex: 90 }}>
+            <Tabs
+              value={value}
+              onChange={handleChange}
+              aria-label="simple tabs example"            
+              variant="fullWidth"
+            >
+              <Tab label="History" />
+              <Tab label="Map" />
+              <Tab label="Favorite" />
+            </Tabs>
+          </AppBar>
+
+          {value === 0 && <SearchHistory />}
+          {value === 1 && <Map />}
+          {value === 2 && <FavoriteList />}
+        </>
+      ) : (
+        <>
+          <SearchHistory />
+          <Map />
+          <FavoriteList />
+        </>
+      )}
     </LoadingOverlay>
   );
 };

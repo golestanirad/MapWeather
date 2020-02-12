@@ -18,7 +18,8 @@ const SearchHistory = () => {
     });
   };
 
-  return <div className={styles.container}>{renderWeatherCardsList()}</div>;
+   return <div className={styles.container}>{renderWeatherCardsList()}</div>;
+  
 };
 
 export default SearchHistory;

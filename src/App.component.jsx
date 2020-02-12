@@ -28,13 +28,13 @@ export default App;
 // 4) weather tile - done
 // 5) make location icon emty and filled when selected - done
 // 6) weather icons - done
-// 7) move the selected one hiligted and to the top 
+// 7) move the selected one "highlited" and to the top 
 // 8) make the top one always selected - done
 // 9) add loader spiner - done
 // 10) add animation via csstransitoingroup from facebook comunity
 // 11) fix forcast arrow
 // 12) use a nice scroll bar
-//13) make it responsive :) *********
+//13) make it responsive :) - done
 // 14) use https://github.com/welldone-software/why-did-you-render
 // 15) use hook eslint
 // 16) use immer - done

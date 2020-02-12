@@ -13,14 +13,7 @@ const Map = () => {
   const mapCenterCoords = useSelector(({ map }) => {
     return map.mapCenter;
   });
-  useEffect(() => {
-    navigator.geolocation.getCurrentPosition(
-      ({ coords: { latitude, longitude } }) => {
-       // dispatch(mapCenter(latitude, longitude));
-        dispatch(fetchWeatherDataStart({ lat: latitude, lng: longitude }));
-      }
-    );
-  }, []);
+ 
 
   ///// event handelers
   const onContextMenu = e => {

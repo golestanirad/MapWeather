@@ -92,7 +92,7 @@ const WeatherCard = ({ weatherInfo, cityId }) => {
         <span>Current Weather:</span>
         <WeatherInformation main={main} weather={weather} wind={wind} />
       </div>
-
+ 
       <div className={styles.divider} />
 
       <div className={styles.forecast}>
