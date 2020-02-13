@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -9,46 +9,41 @@ import Fab from "@material-ui/core/Fab";
 /// project files
 import styles from "./slide-show.module.scss";
 
-const CustomArrow = props => {
-  const { className, onClick, style } = props;
-  // return <div className={className + " " + styles.arrow} onClick={onClick} />;
-  return (
-    <div
-      className={className}
-      onClick={onClick}
-      style={{ ...style, display: "block" }}
-    >
-      8
-    </div>
-    // <div className={className + " " + styles.arrows}>
-    //   <div className={className + " " + styles.arrow} onClick={onClick} />
-    //   <div className={className + " " + styles.arrow} onClick={onClick} />
-    // </div>
-  );
-};
-
 const MySlideShow = ({ children }) => {
+  /// HOOKS
+  const slideRef = useRef(null);
+  //// OTHERS
   const settings = {
     dots: false,
     infinite: true,
     speed: 500,
     slidesToShow: 1,
-    slidesToScroll: 1,
-    nextArrow: <CustomArrow />,
-    prevArrow: <CustomArrow />
+    slidesToScroll: 1
   };
-
+  ////// RENDER
   return (
     <div className={styles.container}>
       <div className={styles.slideContainer}>
-        <Slider {...settings}>{children}</Slider>
+        <Slider {...settings} ref={slideRef}>
+          {children}
+        </Slider>
       </div>
-      <Fab color="primary" aria-label="add">
-        <FirstPageIcon />
-      </Fab>
-      <Fab color="primary" aria-label="add">
-        <LastPage />
-      </Fab>
+      <div className={styles.jumpIcons}>
+        <Fab color="primary" aria-label="add" className={styles.jumpIcon}>
+          <FirstPageIcon
+            onClick={() => {
+              slideRef.current.slickGoTo(0);
+            }}
+          />
+        </Fab>
+        <Fab color="primary" aria-label="add" className={styles.jumpIcon}>
+          <LastPage
+            onClick={() => {
+              slideRef.current.slickGoTo(39);
+            }}
+          />
+        </Fab>
+      </div>
     </div>
   );
 };

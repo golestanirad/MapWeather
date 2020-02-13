@@ -66,22 +66,18 @@ const WeatherCard = ({ weatherInfo, cityId }) => {
 
   //// renders
   const renderForcastList = () => {
-    let i = 0;
     const newList = _.map(list, ({ main, weather, wind, dt_txt }) => {
-      if (i < 3) {
-        i++;
-        return (
-          <WeatherInformation
-            main={main}
-            weather={weather}
-            wind={wind}
-            time={dt_txt}
-            key={dt_txt}
-          />
-        );
-      }
+      return (
+        <WeatherInformation
+          main={main}
+          weather={weather}
+          wind={wind}
+          time={dt_txt}
+          key={dt_txt}
+        />
+      );
     });
-    return _.filter(newList);
+    return newList;
   };
 
   return (
@@ -92,7 +88,7 @@ const WeatherCard = ({ weatherInfo, cityId }) => {
         <span>Current Weather:</span>
         <WeatherInformation main={main} weather={weather} wind={wind} />
       </div>
- 
+
       <div className={styles.divider} />
 
       <div className={styles.forecast}>

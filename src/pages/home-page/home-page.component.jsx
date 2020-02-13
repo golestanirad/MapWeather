@@ -10,7 +10,7 @@ import styles from "./home-page.module.scss";
 import Map from "../../components/map/map.component";
 import SearchHistory from "../../components/search-history/search-history.component";
 import FavoriteList from "../../components/favorite-list/favorite-list.component";
-import MoboleTabBar from "../../components/mobile-tab-bar/mobile-tab-bar.component";
+import WeatherCard from "../../components/weather-card/weather-card.component";
 import { fetchWeatherDataStart } from "../../redux/weather/weather.actions";
 import { mapCenter } from "../../redux/map/map.actions";
 
@@ -20,6 +20,11 @@ const HomePage = () => {
   const isTabletOrMobile = useMediaQuery({ query: "(max-width: 1024px)" });
   const [value, setValue] = useState(1);
   const dispatch = useDispatch();
+  const { selected, selectedData } = useSelector(state => {
+    const selected = state.weather.selected;
+    const selectedData = state.weather.weatherData[selected];
+    return { selected, selectedData };
+  });
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
       ({ coords: { latitude, longitude } }) => {
@@ -42,6 +47,7 @@ const HomePage = () => {
       spinner
       text="Loading your content..."
       className={isTabletOrMobile ? styles.smallContainer : styles.bigContainer}
+     
     >
       {isTabletOrMobile ? (
         <>
@@ -49,7 +55,7 @@ const HomePage = () => {
             <Tabs
               value={value}
               onChange={handleChange}
-              aria-label="simple tabs example"            
+              aria-label="simple tabs example"
               variant="fullWidth"
             >
               <Tab label="History" />
@@ -59,7 +65,16 @@ const HomePage = () => {
           </AppBar>
 
           {value === 0 && <SearchHistory />}
-          {value === 1 && <Map />}
+          {value === 1 && (
+            <>
+              <Map />
+              {selected && (
+                <div className={styles.card}>
+                  <WeatherCard weatherInfo={selectedData} cityId={selected} />
+                </div>
+              )}
+            </>
+          )}
           {value === 2 && <FavoriteList />}
         </>
       ) : (

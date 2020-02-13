@@ -1,30 +1,25 @@
 .container {
   width: 100%;
-
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-
-  .slideContainer {
+  .jumpIcons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     width: 70%;
     padding: 0 30px;
-   background-color: cornflowerblue;
-    // margin-bottom: 40px;
-  
-    .arrows {
-      width: 30px;
-      height: 30px;
-     
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      .arrow {
-     
-        border-radius: 50%;
-      }
+    background-color: rgb(185, 207, 248);
+    .jumpIcon {
+      width: 35px;
+      height: 35px;
+      margin: 5px;
     }
   }
-  
+  .slideContainer {
+    width: 70%;
+    padding: 0 30px 10px 30px;
+    background-color: rgb(185, 207, 248);
+  }
 }

@@ -4,7 +4,7 @@ import _ from "lodash";
 /// project files
 import styles from "./search-history.module.scss";
 import WeatherCard from "../weather-card/weather-card.component";
-import LoadingWeatherCard from "../weather-card/loading-weather-card/loading-weather-card";
+
 
 const SearchHistory = () => {
   //// Hooks
